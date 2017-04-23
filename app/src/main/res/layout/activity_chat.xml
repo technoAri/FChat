@@ -4,28 +4,38 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#ffffff"
-    android:paddingBottom="@dimen/activity_vertical_margin"
-    android:paddingLeft="@dimen/activity_horizontal_margin"
-    android:paddingRight="@dimen/activity_horizontal_margin"
-    android:paddingTop="@dimen/activity_vertical_margin"
     android:orientation="vertical"
+
     tools:context=".ChatActivity">
 
+    <include
+        android:id="@+id/toolbar_chatbox"
+        layout="@layout/tollbar_chatbox" />
+
     <ScrollView
+        android:id="@+id/scrollView"
+        android:padding="15dp"
         android:layout_width="match_parent"
-        android:layout_weight="20"
         android:layout_height="wrap_content"
-        android:id="@+id/scrollView">
+        android:layout_weight="20">
 
         <!---->
-            <LinearLayout
-                android:padding="10dp"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:id="@+id/layout1"
-                android:layout_gravity="start">
-            </LinearLayout>
+        <LinearLayout
+            android:id="@+id/layout1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="start"
+            android:orientation="vertical"
+            android:padding="10dp">
+
+            <!--<TextView-->
+                <!--android:id="@+id/time_display"-->
+                <!--android:layout_width="wrap_content"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:text="HI"-->
+                <!--android:layout_gravity="bottom"-->
+                <!--android:textSize="8dp" />-->
+        </LinearLayout>
 
     </ScrollView>
 
@@ -33,6 +43,6 @@
         layout="@layout/messege_area"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:gravity="bottom"
-        android:layout_marginTop="5dp"/>
+        android:layout_marginTop="5dp"
+        android:gravity="bottom" />
 </LinearLayout>

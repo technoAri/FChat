@@ -2,6 +2,7 @@ package fchat.mychat.com.fchat;
 
 import android.app.ProgressDialog;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
@@ -26,11 +27,14 @@ public class LoginActivity extends AppCompatActivity {
     EditText username, password;
     Button loginButton;
     String user, pass;
+    public static boolean isLoggedIn = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
+
+       // getLoggedInState();
 
         register = (TextView) findViewById(R.id.register);
         username = (EditText) findViewById(R.id.username);
@@ -75,6 +79,8 @@ public class LoginActivity extends AppCompatActivity {
                                         UserDetails.username = user;
                                         UserDetails.password = pass;
                                         startActivity(new Intent(LoginActivity.this, UsersActivity.class));
+                                        isLoggedIn = true;
+                                        putLoggedInValue();
                                     } else {
                                         Toast.makeText(LoginActivity.this, "incorrect password", Toast.LENGTH_LONG).show();
                                     }
@@ -98,5 +104,22 @@ public class LoginActivity extends AppCompatActivity {
                 }
             }
         });
+    }
+
+    private void getLoggedInState() {
+        SharedPreferences prefs = getSharedPreferences("MY_PREFS_NAME", MODE_PRIVATE);
+        String restoredState = prefs.getString("LoggedInState", null);
+        if (restoredState != null) {
+            Intent i = new Intent(LoginActivity.this, UsersActivity.class);
+            i.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+            startActivity(i);
+        }
+    }
+
+    private void putLoggedInValue() {
+        SharedPreferences.Editor editor = getSharedPreferences("MY_PREFS_NAME", MODE_PRIVATE).edit();
+        editor.putString("LoggedInState", user);
+        //editor.putInt("idName", 12);
+        editor.commit();
     }
 }
