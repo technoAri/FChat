@@ -2,6 +2,7 @@ package fchat.mychat.com.fchat;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.Gravity;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
@@ -94,15 +95,20 @@ public class ChatActivity extends AppCompatActivity {
     public void addMessageBox(String message, int type){
         TextView textView = new TextView(ChatActivity.this);
         textView.setText(message);
-        LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+        textView.setTextSize(18);
+        textView.setPadding(15, 15, 15, 15);
+        LinearLayout.LayoutParams lp = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
         lp.setMargins(0, 0, 0, 10);
         textView.setLayoutParams(lp);
 
         if(type == 1) {
             textView.setBackgroundResource(R.drawable.rounded_corner1);
+            lp.gravity = Gravity.START;
         }
         else{
             textView.setBackgroundResource(R.drawable.rounded_corner2);
+            lp.gravity = Gravity.END;
+
         }
 
         layout.addView(textView);
