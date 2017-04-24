@@ -140,6 +140,13 @@ public class ChatActivity extends AppCompatActivity {
                 popup.show();
             }
         });
+
+        backButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                finish();
+            }
+        });
     }
 
     public void addMessageBox(String message, int type){

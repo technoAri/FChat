@@ -2,11 +2,16 @@ package fchat.mychat.com.fchat;
 
 import android.app.ProgressDialog;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.PopupMenu;
+import android.support.v7.widget.Toolbar;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 
@@ -30,14 +35,20 @@ public class UsersActivity extends AppCompatActivity {
     ArrayList<String> al = new ArrayList<>();
     int totalUsers = 0;
     ProgressDialog pd;
+    ImageView meuMain;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_users);
 
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar_main);
+        setSupportActionBar(toolbar);
+        getSupportActionBar().setTitle(null);
+
         usersList = (ListView)findViewById(R.id.usersList);
         noUsersText = (TextView)findViewById(R.id.noUsersText);
+        meuMain = (ImageView) findViewById(R.id.menu_main);
 
         pd = new ProgressDialog(UsersActivity.this);
         pd.setMessage("Loading...");
@@ -65,6 +76,36 @@ public class UsersActivity extends AppCompatActivity {
                 UserDetails.chatWith = al.get(position);
                 startActivity(new Intent(UsersActivity.this, ChatActivity.class));
             }
+        });
+
+        meuMain.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                PopupMenu popup = new PopupMenu(UsersActivity.this, meuMain);
+                popup.getMenuInflater().inflate(R.menu.menu_main, popup.getMenu());
+
+                popup.setOnMenuItemClickListener(new PopupMenu.OnMenuItemClickListener() {
+                    @Override
+                    public boolean onMenuItemClick(MenuItem item) {
+
+                        if (item.getItemId() == R.id.logout) {
+                            SharedPreferences preferences = getSharedPreferences("MY_PREFS_NAME", MODE_PRIVATE);
+                            preferences.edit().remove("LoggedInState").commit();
+                            Intent intent = new Intent(UsersActivity.this, LoginActivity.class);
+                            startActivity(intent);
+                            finish();
+                        }
+//                        else if (item.getItemId() == R.id.logout) {
+//                            SharedPreferences preferences = getSharedPreferences("MY_PREFS_NAME", MODE_PRIVATE);
+//                            preferences.edit().remove("state").commit();
+//                            finish();
+//                        }
+                        return true;
+                    }
+                });
+                popup.show();
+            }
+
         });
     }
 

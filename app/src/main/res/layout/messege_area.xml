@@ -15,12 +15,13 @@
         android:hint="Write a message..."
         android:id="@+id/messageArea"
         android:maxHeight="80dp"
+        android:layout_marginLeft="2dp"
         />
 
     <ImageView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_weight="4"
+        android:layout_weight="5"
         android:padding="4dp"
         android:src="@android:drawable/ic_menu_send"
         android:id="@+id/sendButton"/>

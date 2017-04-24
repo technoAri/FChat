@@ -42,7 +42,9 @@
         android:layout_height="wrap_content"
         android:text="Login"
         android:id="@+id/loginButton"
-        android:layout_marginBottom="20dp"/>
+        android:background="@color/colorPrimary"
+        android:layout_marginBottom="20dp"
+        android:textColor="#ffffff"/>
 
     <TextView
         android:layout_width="match_parent"
